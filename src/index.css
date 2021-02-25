@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.archive{
+  /* Объявляем элемент в качестве контейнера-сетки */
+  display: grid;
+  /* Автоматически уместить как можно больше элементов в строке, не переходя нижнюю границу ширины в 180 пикс. */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  /* Небольшие отступы между постами */
+  grid-gap: 1em;
+}
+
+.card{
+  border: 1px solid black;
+}
