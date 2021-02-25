@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Card from "./Card"
 
 class Main extends Component {
   constructor(props) {
@@ -9,7 +10,7 @@ class Main extends Component {
   }
 
   async componentDidMount() {
-    for (let i = 1; i < 21; i++) {
+    for (let i = 1; i < 63; i+=3) {
       const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
       const onePokemon = await pokemon.json();
       console.log(onePokemon);
@@ -22,8 +23,7 @@ class Main extends Component {
   render() {
     return (
       <div>
-        <div>{this.state.test}</div>
-        Hello world!
+        Список покемонов
         <div className="archive">
           {this.state.pokemon.map((item) => (
             <div className="card" key={item.id}>
@@ -36,6 +36,7 @@ class Main extends Component {
             </div>
           ))}
         </div>
+       <Card pokemon={this.state.pokemon[0]}/>
       </div>
     );
   }
