@@ -1,25 +1,46 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.archive{
-  /* Объявляем элемент в качестве контейнера-сетки */
+.box {
   display: grid;
-  /* Автоматически уместить как можно больше элементов в строке, не переходя нижнюю границу ширины в 180 пикс. */
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.cardbox {
+  display: grid;
+  grid-column-start: 2;
+  grid-column-end: -1;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  /* Небольшие отступы между постами */
-  grid-gap: 1em;
+  grid-template-rows: repeat(auto-fit, minmax(180px, 1fr));
+}
+.menu {
+  display:grid;
+  grid-template-columns:1fr;
+}
+.card {
+  border: 1px solid black;
 }
 
-.card{
+.container {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.item {
   border: 1px solid black;
+}
+
+.item:first-child {
+  grid-column-start: 1fr;
+  grid-column-end: 3fr;
 }
