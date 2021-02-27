@@ -7,7 +7,7 @@ class Main extends Component {
     this.state = {
       pokemon: [],
       color: { backgroundColor: "#000" },
-      allname:[]
+      allname: [],
     };
   }
 
@@ -51,7 +51,7 @@ class Main extends Component {
       case "ice":
         return { backgroundColor: "#0ff" };
       case "dark":
-        return { backgroundColor: "#1c120b",color:"#fff" };
+        return { backgroundColor: "#1c120b", color: "#fff" };
       case "dragon":
         return { backgroundColor: "#ff6a00" };
       case "steel":
@@ -62,6 +62,9 @@ class Main extends Component {
         return { backgroundColor: "#000" };
     }
   }
+  hideMenu(e){
+    
+  }
 
   async componentDidMount() {
     function getRandomInt(min, max) {
@@ -69,28 +72,41 @@ class Main extends Component {
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min)) + min;
     }
-    let random = getRandomInt(1, 818);
+    let random = getRandomInt(1, 908);
 
-    const allname=await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1118`)
-    const list=await allname.json();
+    const stableRandom =
+      sessionStorage.getItem("random") ||
+      sessionStorage.setItem("random", random);
+
+    const allname = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1118`);
+    const list = await allname.json();
     this.setState({
-      allname:list.results
-    })
+      allname: list.results,
+    });
 
-    for (let i = random; i < random + 300; i += 3) {
+    for (
+      let i = +stableRandom || random;
+      i < (+stableRandom || random) + 90;
+      i += 3
+    ) {
       const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
       const onePokemon = await pokemon.json();
       this.setState({
         pokemon: [...this.state.pokemon, onePokemon],
       });
     }
+    
   }
 
   render() {
+     
     return (
       <div className="box">
         <div className="menu">
-          {this.state.allname.map((item)=>(<div>{item.name}</div>))}
+          <div onClick={(e)=>this.hideMenu(e)}>Меню</div>
+          {this.state.allname.map((item) => (
+            <div className="point" key={item.id}>{item.name}</div>
+          ))}
         </div>
         <div className="cardbox">
           {this.state.pokemon.map((item) => (

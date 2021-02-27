@@ -13,18 +13,30 @@ code {
 }
 .box {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-rows: repeat(6,30vh)
+ 
+  
 }
 .cardbox {
   display: grid;
   grid-column-start: 2;
   grid-column-end: -1;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(180px, 1fr));
+  grid-row: 1/-1;
+  
 }
 .menu {
   display:grid;
   grid-template-columns:1fr;
+  grid-row: 1/-1;
+  grid-column:1/2;
+  overflow: scroll; 
+  /* height: 100vh; */
+  
+}
+.point{
+  
 }
 .card {
   border: 1px solid black;
