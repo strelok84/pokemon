@@ -5,8 +5,11 @@ class Card extends React.Component {
     super(props);
     this.state = {
       pokemon: {},
+      name:""
     };
   }
+
+  
 
   render() {
     return (

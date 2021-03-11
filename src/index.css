@@ -27,11 +27,12 @@ code {
   
 }
 .menu {
-  display:grid;
+  
   grid-template-columns:1fr;
   grid-row: 1/-1;
   grid-column:1/2;
-  overflow: scroll; 
+  overflow-y: scroll;
+  overflow-x: hidden;
   /* height: 100vh; */
   
 }

@@ -8,15 +8,29 @@ class Main extends Component {
       pokemon: [],
       color: { backgroundColor: "#000" },
       allname: [],
+      searchName: "",
     };
+    this.searchName = this.searchName.bind(this);
+    this.searchBar = this.searchBar.bind(this);
   }
 
   handleClick(e, item) {
     e.preventDefault();
-    console.log(item);
     this.props.history.push({
       pathname: "/card",
       state: { pokemon: item },
+    });
+  }
+
+  async handleClickAllName(e, item) {
+    e.preventDefault();
+    let reqPokemon = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${item.name}`
+    );
+    let pokemon = await reqPokemon.json();
+    this.props.history.push({
+      pathname: "/card",
+      state: { pokemon: pokemon },
     });
   }
 
@@ -62,8 +76,22 @@ class Main extends Component {
         return { backgroundColor: "#000" };
     }
   }
-  hideMenu(e){
-    
+
+  searchName(event) {
+    this.setState({ searchName: event.target.value });
+  }
+
+  searchBar(event) {
+    event.preventDefault();
+    let table = document.getElementsByClassName("point");
+    for (let i = 0; i < table.length; i++) {
+      if (table[i].innerHTML === this.state.searchName) {
+        console.log("CATCH");
+        table[i].style.fontWeight = "bold";
+        table[i].style.backgroundColor = "#808080";
+        table[i].scrollIntoView();
+      }
+    }
   }
 
   async componentDidMount() {
@@ -95,17 +123,33 @@ class Main extends Component {
         pokemon: [...this.state.pokemon, onePokemon],
       });
     }
-    
   }
 
   render() {
-     
     return (
       <div className="box">
         <div className="menu">
-          <div onClick={(e)=>this.hideMenu(e)}>Меню</div>
+          <div>Меню</div>
+          <div>
+            <form onSubmit={this.searchBar}>
+              <input
+                type="search"
+                onChange={this.searchName}
+                placeholder="Название"
+              />
+              <input type="submit" value="Найти" />
+            </form>
+          </div>
+
           {this.state.allname.map((item) => (
-            <div className="point" key={item.id}>{item.name}</div>
+            <div
+              className="point"
+              key={item.id}
+              href="./card"
+              onClick={(e) => this.handleClickAllName(e, item)}
+            >
+              {item.name}
+            </div>
           ))}
         </div>
         <div className="cardbox">
